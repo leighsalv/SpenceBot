@@ -44,6 +44,11 @@ app.post('/webhook/', function(req, res) {
         sendText(sender, "Type in the amount like this: $10 and I will store it!")
         continue
       }
+
+      else if(text.indexOf('$') > -1){
+      	sendText(sender, "Amount received: " + text)
+      	continue
+      }
       else
       	sendText(sender, "Text echo: " + text.substring(0,100))
     }
