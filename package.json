@@ -1,0 +1,23 @@
+{
+  "name": "chatfood",
+  "version": "1.0.0",
+  "description": "let's talk food!",
+  "main": "index.js",
+  "scripts": {
+    "test": "beepboop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leighsalv/chatfood.git"
+  },
+  "author": "Leigh Salvador",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leighsalv/chatfood/issues"
+  },
+  "homepage": "https://github.com/leighsalv/chatfood#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  }
+}
