@@ -21,6 +21,7 @@ app.get('/', function(req, res) {
 })
 
 let token = "EAAKyI9NvUzIBABAdgFmHBVaCB4R8YvukhXO7wH51vYUs7kGsyE3vatvfoq0pctVax92R5ZA2cSVzF6RQMF4CMKhD82NZA7gRwGwm43gPpqso4b7WdWkaAo3u2wkBH11qiDufWZApv0YmVtlV2jVk8FP2cW9Pqw4KhEZB14jXxAZDZD"
+var amount = 0;
 
 //*****FACEBOOK
 app.get('/webhook/', function(req, res) {
@@ -40,15 +41,20 @@ app.post('/webhook/', function(req, res) {
     if(event.message && event.message.text) { //if there's a message & text..
       let text = event.message.text
 
-      if(text == 'log') {
-        sendText(sender, "Type in the amount like this: $10 and I will store it!")
+  	  //if user's message contains log, the bot will store the $$
+      if(text.indexOf('log') > -1) {
+        sendText(sender, "Type in the amount like this: 10 , and I will store it!")
         continue
       }
 
-      else if(text.indexOf('$') > -1){
-      	sendText(sender, "Amount received: " + text)
-      	continue
+      //if user types in the amount spent..
+      else if(text.indexOf('0123456789') > -1) {
+	      	amount += parseFloat(text);
+	      	sendText(sender, "Amount received: " + amount)
+	      	continue
+      	}
       }
+      //testing purpose that the bot received the user's message
       else
       	sendText(sender, "Text echo: " + text.substring(0,100))
     }
