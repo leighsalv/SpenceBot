@@ -40,8 +40,8 @@ app.post('/webhook/', function(req, res) {
     if(event.message && event.message.text) { //if there's a message & text..
       let text = event.message.text
 
-      if(text == 'Generic') {
-        sendGenericMessage(sender)
+      if(text == 'log in' || 'log') {
+        sendLogIn(sender)
         continue
       }
       sendText(sender, "Text echo: " + text.substring(0,100))
@@ -71,65 +71,8 @@ function sendText(sender, text){
 }
 
 
-function sendGenericMessage(sender) {
-    let messageData = /*{
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "generic",
-                "elements": [{
-                    "title": "First card",
-                    "subtitle": "Element #1 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-                    "buttons": [{
-                        "type": "web_url",
-                        "url": "https://www.messenger.com",
-                        "title": "web url"
-                    }, {
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for first element in a generic bubble",
-                    }],
-                }, {
-                    "title": "Second card",
-                    "subtitle": "Element #2 of an hscroll",
-                    "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Postback",
-                        "payload": "Payload for second element in a generic bubble",
-                    }],
-                }]
-            }
-        }*/
-        {
-  "object": "page",
-  "entry": [
-    {
-      "id": "<PAGE_ID>",
-      "time": 1502905976963,
-      "messaging": [
-        {
-          "sender": {
-            "id": "1254459154682919"
-          },
-          "recipient": {
-            "id": "682498171943165"
-          },
-          "timestamp": 1502905976377,
-          "message": {
-            "quick_reply": {
-              "payload": "DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
-            },
-            "mid": "mid.$cAAJsujCd2ORkHXKOOVd7C1F97Zto",
-            "seq": 9767,
-            "text": "Green"
-          }
-        }
-      ]
-    }
-  ]
-}
+function sendLogIn(sender) {
+    sendText(sender, "Type the amount spent with a $ sign like this: $10, and I'll keep track of it!")
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
