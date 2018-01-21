@@ -46,7 +46,11 @@ app.post('/webhook/', function(req, res) {
         continue
       }
 
-     }
+      //if user's message contains $...
+      else if(text.indexOf('$') > -1){
+      	sendText(sender, "Amount received: " + text)
+      	continue
+      }
       //testing purpose that the bot received the user's message
       else
       	sendText(sender, "Text echo: " + text.substring(0,100))
