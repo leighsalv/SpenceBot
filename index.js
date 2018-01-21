@@ -42,20 +42,11 @@ app.post('/webhook/', function(req, res) {
 
   	  //if user's message contains log, the bot will store the $$
       if(text.indexOf('log') > -1) {
-        sendText(sender, "Type in the amount like this: 10 , and I will store it!")
+        sendText(sender, "Type in the amount like this: $10 and I will store it!")
         continue
       }
 
-      //if user types in the amount spent..
-      else if(text.indexOf('0123456789') > -1) {
-	      	var amount = parseFloat(text)
-	      	sendText(sender, "Amount received: " + text)
-	      	amount = amount + 5;
-	      	//convert amount back to a string
-	      	sendText(sender, "Total spent:" + amount)
-	      	continue
-      	}
-      }
+     }
       //testing purpose that the bot received the user's message
       else
       	sendText(sender, "Text echo: " + text.substring(0,100))
