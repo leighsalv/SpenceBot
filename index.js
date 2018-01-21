@@ -40,11 +40,12 @@ app.post('/webhook/', function(req, res) {
     if(event.message && event.message.text) { //if there's a message & text..
       let text = event.message.text
 
-      if(text == 'login' || 'log in' || 'log') {
+      if(text == 'log') {
         sendText(sender, "Type in the amount like this: $10 and I will store it!")
         continue
       }
-      sendText(sender, "Text echo: " + text.substring(0,100))
+      else
+      	sendText(sender, "Text echo: " + text.substring(0,100))
     }
   }
   res.sendStatus(200)
