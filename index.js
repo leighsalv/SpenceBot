@@ -72,7 +72,7 @@ function sendText(sender, text){
 
 
 function sendGenericMessage(sender) {
-    let messageData = {
+    let messageData = /*{
         "attachment": {
             "type": "template",
             "payload": {
@@ -101,7 +101,35 @@ function sendGenericMessage(sender) {
                     }],
                 }]
             }
+        }*/
+        {
+  "object": "page",
+  "entry": [
+    {
+      "id": "<PAGE_ID>",
+      "time": 1502905976963,
+      "messaging": [
+        {
+          "sender": {
+            "id": "1254459154682919"
+          },
+          "recipient": {
+            "id": "682498171943165"
+          },
+          "timestamp": 1502905976377,
+          "message": {
+            "quick_reply": {
+              "payload": "DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
+            },
+            "mid": "mid.$cAAJsujCd2ORkHXKOOVd7C1F97Zto",
+            "seq": 9767,
+            "text": "Green"
+          }
         }
+      ]
+    }
+  ]
+}
     }
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
