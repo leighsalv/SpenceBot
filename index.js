@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
 
 //FACEBOOK
 app.get('/webhook/', function(req, res) {
-  if (req.query['hub.verify_token'] == "EAAKyI9NvUzIBAEDwOdOc2ZC4OBqgXnsZBZAUBJnTcZBKqKQX6IjWa5wRKcsmBX4buDxwDhML8OIKNATggjTFkS0ZBaVd21D0WtoZCXZB72TwfJuZAXjiGO8OzokAZB1zYZCpBZAyiul6yeJ7AGUoqZCazKsEcqZCtO77cJvWF1pBY1Tmb2AZDZD") {
+  if (req.query['hub.verify_token'] == "EAAKyI9NvUzIBABAdgFmHBVaCB4R8YvukhXO7wH51vYUs7kGsyE3vatvfoq0pctVax92R5ZA2cSVzF6RQMF4CMKhD82NZA7gRwGwm43gPpqso4b7WdWkaAo3u2wkBH11qiDufWZApv0YmVtlV2jVk8FP2cW9Pqw4KhEZB14jXxAZDZD"){
       res.send(req.query['hub.challenge'])
   }
   res.send("Wrong token")
