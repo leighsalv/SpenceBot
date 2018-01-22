@@ -40,23 +40,29 @@ app.post('/webhook/', function(req, res) {
     if(event.message && event.message.text) { //if there's a message & text..
       let text = event.message.text
 
-      if(text == 'log') {
+      if(text == 'log') { //user typed log -> bot tells user to type in amount
         sendText(sender, "Type in the amount like this: 10 or 10.00 and I will store it!")
         continue
       }
 
-      else if('text'.includes('0123456789') > -1){
+      else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
       	var amount = parseFloat(text);
       	sendText(sender, "Amount received: " + amount)
       	continue
       }
 
       else
-      	sendText(sender, "Text echo: " + text.substring(0,100))
+      	sendText(sender, "Text echo: " + text.substring(0,100)) //default bot response
     }
   }
   res.sendStatus(200)
 })
+
+//checks if user typed numbers (verifies if it's $)
+function hasNumbers(t) {
+	var regex = /\d/g;
+	return regex.test(t);
+}
 
 //sends message back to user
 function sendText(sender, text){
@@ -79,26 +85,9 @@ function sendText(sender, text){
 }
 
 
-/*function sendGenericMessage(sender) {
-    let messageData = {
-        
-    }
-    request({
-        url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:token},
-        method: 'POST',
-        json: {
-            recipient: {id:sender},
-            message: messageData,
-        }
-    }, function(error, response, body) {
-        if (error) {
-            console.log('Error sending messages: ', error)
-        } else if (response.body.error) {
-            console.log('Error: ', response.body.error)
-        }
-    })
-}*/
+
+
+
 
 //**PORT
 app.listen(app.get('port'), function() {
