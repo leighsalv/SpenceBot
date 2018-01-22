@@ -31,6 +31,9 @@ app.get('/webhook/', function(req, res) {
 })
 
 //sends & receive messages from user
+
+var spent = [];
+
 app.post('/webhook/', function(req, res) {
   let messaging_events = req.body.entry[0].messaging
   for(let i=0; i < messaging_events.length; i++) {
@@ -47,7 +50,8 @@ app.post('/webhook/', function(req, res) {
 
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
       	var amount = parseFloat(text);
-      	sendText(sender, "Amount received: " + amount)
+      	spent.push(amount);
+      	sendText(sender, "$" + amount + " was logged!")
       	continue
       }
 
