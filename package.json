@@ -1,7 +1,7 @@
 {
-  "name": "chatfood",
+  "name": "spencebot",
   "version": "1.0.0",
-  "description": "let's talk food!",
+  "description": "your exSPENCEs are safe with me",
   "main": "index.js",
   "scripts": {
     "test": "beepboop"
