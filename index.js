@@ -33,6 +33,7 @@ app.get('/webhook/', function(req, res) {
 //sends & receive messages from user
 
 var spent = [];
+var totalAmount = 0;
 
 app.post('/webhook/', function(req, res) {
   let messaging_events = req.body.entry[0].messaging
@@ -53,6 +54,13 @@ app.post('/webhook/', function(req, res) {
       	spent.push(amount);
       	sendText(sender, "$" + amount + " was logged!")
       	continue
+      }
+
+      else if(text == 'total') {
+      	for(var j = 0; j < spent.length; j++) {
+      		totalAmount = totalAmount + spent[j];
+      	}
+      	sendText(sender, "You've spent: $ " + totalAmount)
       }
 
       else
