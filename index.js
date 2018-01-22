@@ -41,15 +41,16 @@ app.post('/webhook/', function(req, res) {
       let text = event.message.text
 
       if(text == 'log') {
-        sendText(sender, "Type in the amount like this: $10 and I will store it!")
+        sendText(sender, "Type in the amount like this: 10 or 10.00 and I will store it!")
         continue
       }
 
-
-      else if(text.indexOf('$') > -1){
-      	sendText(sender, "Amount received: " + text)
+      else if('text'.includes('0123456789') > -1){
+      	var amount = parseFloat(text);
+      	sendText(sender, "Amount received: " + amount)
       	continue
       }
+
       else
       	sendText(sender, "Text echo: " + text.substring(0,100))
     }
