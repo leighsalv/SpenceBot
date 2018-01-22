@@ -44,8 +44,8 @@ app.post('/webhook/', function(req, res) {
     if(event.message && event.message.text) { //if there's a message & text..
       let text = event.message.text
 
-      if(text == 'log') { //user typed log -> bot tells user to type in amount
-        sendText(sender, "Type in the amount like this: 10 or 10.00 and I will store it!")
+      if(text == 'help') { //user typed help -> bot tells instructions
+        sendText(sender, "Type...\n TOTAL to see how much you've spent\n CLEAR to restart log\n any amount i.e. 10 or 10.00 so I can keep track of how much you spend!")
         continue
       }
 
@@ -60,7 +60,14 @@ app.post('/webhook/', function(req, res) {
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
-      	sendText(sender, "You've spent: $ " + totalAmount)
+      	sendText(sender, "You've spent: $" + totalAmount)
+      	continue
+      }
+
+      else if(text == 'clear') {
+      	spent.length = 0;
+      	sendText(sender, "Log cleared")
+      	continue
       }
 
       else
