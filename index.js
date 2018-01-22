@@ -57,6 +57,7 @@ app.post('/webhook/', function(req, res) {
       }
 
       else if(text == 'total') {
+      	total = 0;
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
