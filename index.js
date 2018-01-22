@@ -1,6 +1,6 @@
 'use strict';
 
-//*****HTTP SERVER USING EXPRESS
+// ===== HTTP SERVER USING EXPRESS ==============================================
 // Imports dependencies and set up http server
 const
   express = require('express'),
@@ -11,18 +11,18 @@ const
 // Sets server port and logs message on success; server listens for requests in default port or port 1337
 app.set('port', (process.env.PORT || 5000))
 
-//*****Process data
+//Process data
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-//*****Routes
+//Routes
 app.get('/', function(req, res) {
   res.send("Hello. Let's talk food!")
 })
 
 let token = "EAAKyI9NvUzIBABAdgFmHBVaCB4R8YvukhXO7wH51vYUs7kGsyE3vatvfoq0pctVax92R5ZA2cSVzF6RQMF4CMKhD82NZA7gRwGwm43gPpqso4b7WdWkaAo3u2wkBH11qiDufWZApv0YmVtlV2jVk8FP2cW9Pqw4KhEZB14jXxAZDZD"
 
-//*****FACEBOOK
+// ===== FACEBOOK ===============================================================
 app.get('/webhook/', function(req, res) {
   if (req.query['hub.verify_token'] == "EAAKyI9NvUzIBABAdgFmHBVaCB4R8YvukhXO7wH51vYUs7kGsyE3vatvfoq0pctVax92R5ZA2cSVzF6RQMF4CMKhD82NZA7gRwGwm43gPpqso4b7WdWkaAo3u2wkBH11qiDufWZApv0YmVtlV2jVk8FP2cW9Pqw4KhEZB14jXxAZDZD"){
       res.send(req.query['hub.challenge'])
@@ -31,7 +31,6 @@ app.get('/webhook/', function(req, res) {
 })
 
 //sends & receive messages from user
-
 var spent = [];
 var totalAmount = 0;
 
@@ -45,7 +44,7 @@ app.post('/webhook/', function(req, res) {
       let text = event.message.text
 
       if(text == 'help') { //user typed help -> bot tells instructions
-        sendText(sender, "Type...\n TOTAL to see how much you've spent\n CLEAR to restart log\n any amount i.e. 10 or 10.00 so I can keep track of how much you spend!")
+        sendText(sender, "Type...\nTOTAL to see how much you've spent\nCLEAR to restart log\n\nTo log money, type the amount i.e. 10 or 10.00 so I can keep track of how much you spend!")
         continue
       }
 
@@ -56,7 +55,7 @@ app.post('/webhook/', function(req, res) {
       	continue
       }
 
-      else if(text == 'total') {
+      else if(text == 'total') { //user typed total -> bot adds & replies total amount spent
       	totalAmount = 0;
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
@@ -65,7 +64,7 @@ app.post('/webhook/', function(req, res) {
       	continue
       }
 
-      else if(text == 'clear') {
+      else if(text == 'clear') { //user typed clear -> bot clears spent log (array)
       	spent.length = 0;
       	sendText(sender, "Log cleared")
       	continue
@@ -109,7 +108,7 @@ function sendText(sender, text){
 
 
 
-//**PORT
+// ===== PORT ===============================================================
 app.listen(app.get('port'), function() {
   console.log("running: port")
 })
