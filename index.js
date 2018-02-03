@@ -20,11 +20,11 @@ app.get('/', function(req, res) {
   res.send("Hello. Let's talk food!")
 })
 
-let token = "EAAKyI9NvUzIBABAdgFmHBVaCB4R8YvukhXO7wH51vYUs7kGsyE3vatvfoq0pctVax92R5ZA2cSVzF6RQMF4CMKhD82NZA7gRwGwm43gPpqso4b7WdWkaAo3u2wkBH11qiDufWZApv0YmVtlV2jVk8FP2cW9Pqw4KhEZB14jXxAZDZD"
+let token = "EAAKyI9NvUzIBAIwUJHZCyMKUnz9CeaOnWypiOXgSO9EnvFLtZAmpBRuY7w07T3XtZB0Tk3dGJeTUjVOIkQGJflwS8P8ZAHIPB9gzbUrj5VTia57SsAZB83YXfgROEkjxUiiHEdbpSXhaeqwaDDvbS66emucwyN9n6jQiwvVjpLwZDZD"
 
 // ===== FACEBOOK ===============================================================
 app.get('/webhook/', function(req, res) {
-  if (req.query['hub.verify_token'] == "EAAKyI9NvUzIBABAdgFmHBVaCB4R8YvukhXO7wH51vYUs7kGsyE3vatvfoq0pctVax92R5ZA2cSVzF6RQMF4CMKhD82NZA7gRwGwm43gPpqso4b7WdWkaAo3u2wkBH11qiDufWZApv0YmVtlV2jVk8FP2cW9Pqw4KhEZB14jXxAZDZD"){
+  if (req.query['hub.verify_token'] == "EAAKyI9NvUzIBAIwUJHZCyMKUnz9CeaOnWypiOXgSO9EnvFLtZAmpBRuY7w07T3XtZB0Tk3dGJeTUjVOIkQGJflwS8P8ZAHIPB9gzbUrj5VTia57SsAZB83YXfgROEkjxUiiHEdbpSXhaeqwaDDvbS66emucwyN9n6jQiwvVjpLwZDZD"){
       res.send(req.query['hub.challenge'])
   }
   res.send("Wrong token")
