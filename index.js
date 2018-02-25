@@ -33,6 +33,7 @@ app.get('/webhook/', function(req, res) {
 //sends & receive messages from user
 var spent = [];
 var totalAmount = 0;
+var removeAmount = 0;
 
 app.post('/webhook/', function(req, res) {
   let messaging_events = req.body.entry[0].messaging
@@ -46,24 +47,34 @@ app.post('/webhook/', function(req, res) {
       text = text.toUpperCase();
 
       if(text == "HELP") { //user typed help -> bot tells instructions
-        sendText(sender, "Type...\nTOTAL to see how much you've spent\nCLEAR to restart log\n\nTo log money, type the amount i.e. 10 or 10.00 so I can keep track of how much you spend!")
+        sendText(sender, "Type...the amount i.e. 10 or 10.00 so I can keep track of how much you spend!\n\nTOTAL to see how much you've spent\nCLEAR to clear the log\nREMOVE RECENT to delete the recently typed amount")
         continue
       }
 
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
       	var amount = parseFloat(text);
       	spent.push(amount);
-      	sendText(sender, "$" + amount + " was logged!")
+      	sendText(sender, amount + " was logged!")
       	continue
       }
 
-      else if(text == text == "TOTAL") { //user typed total -> bot adds & replies total amount spent
+      else if(text == "TOTAL") { //user typed total -> bot adds & replies total amount spent
       	totalAmount = 0;
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
-      	sendText(sender, "You've spent: $" + totalAmount)
+      	sendText(sender, "You've spent: " + totalAmount)
       	continue
+      }
+
+      else if(text == "REMOVE RECENT") {
+        for(var r = spent.length; r >= 0; r--) {
+          removeAmount = spent[spent.length];
+          spent.splice(r, 1);
+          break;
+        }
+        sendText(sender, removeAmount + " was removed.")
+        continue
       }
 
       else if(text == "CLEAR") { //user typed clear -> bot clears spent log (array)
@@ -74,7 +85,7 @@ app.post('/webhook/', function(req, res) {
 
       else
       	//"Text echo:" + text.substring(0,100) echoes back user's text
-      	sendText(sender, "I'm sorry, I do not understand. Type in 'help' if you need assistance.") //default bot response
+      	sendText(sender, "I'm sorry, I do not understand. Type in HELP if you need assistance.") //default bot response
 
     }
   }
