@@ -44,7 +44,15 @@ var jokes = [
   "Where can you always find money? In the dictionary!",
   "Nurse: How’s the boy who swallowed a pound coin?\n Doctor: No change yet.",
   "Daddy, how much does it cost to get married? I don’t know, son, I’m still paying for it!",
-  ""
+  "I won $3 million on the lottery this weekend so I decided to donate a quarter of it to charity. Now I have $2,999,999.75.",
+  "What's the difference between baseball and politics? In baseball you're out if you're caught stealing.",
+  "If you think nobody cares whether you're alive, try missing a couple of payments.",
+  "Money talks ...but all mine ever says is good-bye.",
+  "Teacher: Which book has helped you the most in your life?\n Student: My father's check book!",
+  "Up until I bought this bag of chips I thought the air was free..",
+  "Living on earth may be expensive, but it includes an annual free trip around the sun.",
+  "What concert costs 45 cents? 50 Cent feat. Nickelback.",
+  "I am so poor I can't even pay attention."
 ];
 var totalAmount = 0;
 var removeAmount = 0;
@@ -133,15 +141,20 @@ app.post('/webhook/', function(req, res) {
 
 
 
+      //Says hello to user
       else if(text.includes("HELLO") || text.includes("HI")) {
         sendText(sender, "Hello to you too!");
       }
 
 
+
+      //Tells a joke
       else if(text.includes("JOKE")) {
         var jk = jokes[Math.floor(Math.random()*jokes.length)];
         sendText(sender, jk);
       }
+
+
 
       //Default bot response
       else
