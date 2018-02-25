@@ -57,10 +57,12 @@ app.post('/webhook/', function(req, res) {
       //Inserts amount spent in the log (spent array)
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
 
-        text = text.replace(/\$/gi, '');
-        text = text.replace(/\,/gi, '');
+        //g = global; replaces all matches
+        text = text.replace(/\$/g, '');
+        text = text.replace(/\,/g, '');
 
-      	var amount = parseFloat(text);
+        //convert string to float with 2 decimal places
+      	var amount = parseFloat(text).toFixed(2);
       	spent.push(amount);
       	sendText(sender, "$" + amount + " was logged!")
       	continue
@@ -72,6 +74,7 @@ app.post('/webhook/', function(req, res) {
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
+        totalAmount.toLocaleString(); //adds comma to numbers
       	sendText(sender, "You've spent: $" + totalAmount)
       	continue
       }
@@ -91,7 +94,7 @@ app.post('/webhook/', function(req, res) {
         else {
             removeAmount = spent[r];
             spent.splice(r, 1);
-            sendText(sender, removeAmount + " was removed.")
+            sendText(sender, "$" + removeAmount + " was removed.")
             continue
         }
       }
@@ -115,19 +118,6 @@ app.post('/webhook/', function(req, res) {
 
 //checks if user typed numbers (verifies if it's $)
 function hasNumbers(t) {
-  /*if(t.match(/\$?\d\,?\.?/g) {
-    return true;
-  }
-  else {
-    return false;
-  }
-
-  if(text.indexOf('$')) {
-    regex.replace('$','');
-  }
-  else if(text.indexOf(',')) {
-    regex.replace(',','');
-  }*/
 	//var regex = /\d/g;
 
   //$? = $ is optional   followed by digit(s)    ,? = comma is optional   .? = period is optional
