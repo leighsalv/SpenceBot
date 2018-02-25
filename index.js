@@ -36,8 +36,19 @@ app.get('/webhook/', function(req, res) {
 
 /*SENDS & RECEIVES MESSAGES FROM USER*/
 var spent = []; //log
+var jokes = [
+  "Why is money called dough? Because we all knead it!",
+  "What’s another name for long term investment? A failed short term investment!",
+  "Why is a cat like a penny? Because it has a head on one side and a tail on the other!",
+  "What dog has money? A bloodhound, because he is always picking up (s)cents!",
+  "Where can you always find money? In the dictionary!",
+  "Nurse: How’s the boy who swallowed a pound coin?\n Doctor: No change yet.",
+  "Daddy, how much does it cost to get married? I don’t know, son, I’m still paying for it!",
+  ""
+];
 var totalAmount = 0;
 var removeAmount = 0;
+
 
 app.post('/webhook/', function(req, res) {
   let messaging_events = req.body.entry[0].messaging
@@ -55,6 +66,8 @@ app.post('/webhook/', function(req, res) {
         sendText(sender, "Type...the amount i.e. $10 or $10.00 so I can keep track of how much you spend!\n\nTOTAL to see how much you've spent\nCLEAR to clear the log\nREMOVE RECENT to delete the recently typed amount")
         continue
       }
+
+
 
       //Inserts amount spent in the log (spent array)
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
@@ -74,6 +87,8 @@ app.post('/webhook/', function(req, res) {
       	continue
       }
 
+
+
       //Calculates total expenditures in the log (spent array)
       else if(text.includes("TOTAL")) {
       	totalAmount = 0;
@@ -85,8 +100,10 @@ app.post('/webhook/', function(req, res) {
       	continue
       }
 
+
+
       //Removes recently typed amount (if user made a mistake)
-      else if(text == "REMOVE RECENT") {
+      else if(text == "REMOVE RECENT" || text.includes("RECENT") || text.includes("REMOVE")) {
 
         var r = spent.length-1;
         removeAmount = 0;
@@ -105,11 +122,25 @@ app.post('/webhook/', function(req, res) {
         }
       }
 
+
+
       //Removes all amount in the log (spent array)
       else if(text == "CLEAR") {
       	spent.length = 0;
       	sendText(sender, "Log cleared")
       	continue
+      }
+
+
+
+      else if(text.includes("HELLO") || text.includes("HI")) {
+        sendText(sender, "Hello to you too!");
+      }
+
+
+      else if(text.includes("JOKE")) {
+        var jk = jokes[Math.floor(Math.random()*jokes.length)];
+        sendText(sender, jk);
       }
 
       //Default bot response
