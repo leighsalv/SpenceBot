@@ -111,11 +111,16 @@ app.post('/webhook/', function(req, res) {
 
 //checks if user typed numbers (verifies if it's $)
 function hasNumbers(t) {
-  var regex  = /^\d+(?:\.\d{0,2})$/;
-  if (regex.test(t))
+  if(t.match(/\$[0-9,]+(?:\.\d\d)?/g)) {
     return true;
-  else
+  }
+  else if(t.match(/\[0-9]+(?:\.\d\d)?/g)) {
+      return true;
+  }
+  else {
     return false;
+  }
+
 	//var regex = /\d/g;
 	//return regex.test(t);
 }
