@@ -42,8 +42,10 @@ app.post('/webhook/', function(req, res) {
 
     if(event.message && event.message.text) { //if there's a message & text..
       let text = event.message.text
+      //convert everything to uppercase so we dont have to check for lower+upper cases
+      text = text.toUpperCase();
 
-      if(text == "help" || text == "HELP" || text == "Help") { //user typed help -> bot tells instructions
+      if(text == "HELP") { //user typed help -> bot tells instructions
         sendText(sender, "Type...\nTOTAL to see how much you've spent\nCLEAR to restart log\n\nTo log money, type the amount i.e. 10 or 10.00 so I can keep track of how much you spend!")
         continue
       }
@@ -55,7 +57,7 @@ app.post('/webhook/', function(req, res) {
       	continue
       }
 
-      else if(text == "total" || text == "TOTAL" || text == "Total") { //user typed total -> bot adds & replies total amount spent
+      else if(text == text == "TOTAL") { //user typed total -> bot adds & replies total amount spent
       	totalAmount = 0;
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
@@ -64,7 +66,7 @@ app.post('/webhook/', function(req, res) {
       	continue
       }
 
-      else if(text == "clear" || text == "CLEAR" || text == "Clear") { //user typed clear -> bot clears spent log (array)
+      else if(text == "CLEAR") { //user typed clear -> bot clears spent log (array)
       	spent.length = 0;
       	sendText(sender, "Log cleared")
       	continue
