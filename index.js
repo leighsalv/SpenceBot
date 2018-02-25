@@ -57,13 +57,8 @@ app.post('/webhook/', function(req, res) {
       //Inserts amount spent in the log (spent array)
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
 
-        if(text.includes("$") {
-          text.replace("$", "");
-        }
-
-        else if(text.includes(",")) {
-          text.replace(",", "");
-        }
+        text.replace("$", "");
+        text.replace(",", "");
 
       	var amount = parseFloat(text);
       	spent.push(amount);
