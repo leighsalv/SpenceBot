@@ -59,6 +59,7 @@ app.post('/webhook/', function(req, res) {
 
         //g = global; replaces all matches of '$' and ','
         //need to remove those chars b/c we'll be converting text string to float
+        text = text.replace(/\w/gi, '');
         text = text.replace(/\$/g, '');
         text = text.replace(/\,/g, '');
 
