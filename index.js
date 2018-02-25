@@ -56,7 +56,8 @@ app.post('/webhook/', function(req, res) {
 
       //Inserts amount spent in the log (spent array)
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
-      	var amount = parseFloat(text);
+      	//var amount = parseFloat(text);
+        var amount = text.toFixed(2);
       	spent.push(amount);
       	sendText(sender, "$" + amount + " was logged!")
       	continue
@@ -111,8 +112,13 @@ app.post('/webhook/', function(req, res) {
 
 //checks if user typed numbers (verifies if it's $)
 function hasNumbers(t) {
-	var regex = /\d/g;
-	return regex.test(t);
+  var regex  = /^\d+(?:\.\d{0,2})$/;
+  if (regex.test(t))
+    return true;
+  else
+    return false;
+	//var regex = /\d/g;
+	//return regex.test(t);
 }
 
 //sends message back to user
