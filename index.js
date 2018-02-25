@@ -62,7 +62,7 @@ app.post('/webhook/', function(req, res) {
         text = text.replace(/\,/g, '');
 
         //convert string to float with 2 decimal places
-      	var amount = parseFloat(text).toFixed(2);
+      	var amount = parseFloat(text);
       	spent.push(amount);
       	sendText(sender, "$" + amount + " was logged!")
       	continue
@@ -74,7 +74,8 @@ app.post('/webhook/', function(req, res) {
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
-      	sendText(sender, "You've spent: $" + totalAmount.toLocaleString(undefined, {maximumFractionDigits:2}))
+        totalAmount = totalAmount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+      	sendText(sender, "You've spent: $" + totalAmount)
       	continue
       }
 
