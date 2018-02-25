@@ -71,7 +71,7 @@ app.post('/webhook/', function(req, res) {
 
       //Sends instructions to user
       if(text == "HELP") { //user typed help -> bot tells instructions
-        sendText(sender, "Type...the amount i.e. $10 or $10.00 so I can keep track of how much you spend!\n\nTOTAL to see how much you've spent\nCLEAR to clear the log\nREMOVE RECENT to delete the recently typed amount")
+        sendText(sender, "Type...the amount i.e. $10 or $10.00 so I can keep track of how much you spend!\n\nTOTAL to see how much you've spent\nCLEAR to clear the log\nREMOVE RECENT to delete the recently typed amount\nYou could even ask me to tell you a joke!")
         continue
       }
 
