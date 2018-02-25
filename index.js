@@ -22,6 +22,10 @@ app.get('/', function(req, res) {
 
 let token = "EAAKyI9NvUzIBAIwUJHZCyMKUnz9CeaOnWypiOXgSO9EnvFLtZAmpBRuY7w07T3XtZB0Tk3dGJeTUjVOIkQGJflwS8P8ZAHIPB9gzbUrj5VTia57SsAZB83YXfgROEkjxUiiHEdbpSXhaeqwaDDvbS66emucwyN9n6jQiwvVjpLwZDZD"
 
+
+
+
+
 // ===== FACEBOOK ===============================================================
 app.get('/webhook/', function(req, res) {
   if (req.query['hub.verify_token'] == "EAAKyI9NvUzIBAIwUJHZCyMKUnz9CeaOnWypiOXgSO9EnvFLtZAmpBRuY7w07T3XtZB0Tk3dGJeTUjVOIkQGJflwS8P8ZAHIPB9gzbUrj5VTia57SsAZB83YXfgROEkjxUiiHEdbpSXhaeqwaDDvbS66emucwyN9n6jQiwvVjpLwZDZD"){
@@ -29,8 +33,6 @@ app.get('/webhook/', function(req, res) {
   }
   res.send("Wrong token")
 })
-
-
 
 /*SENDS & RECEIVES MESSAGES FROM USER*/
 var spent = []; //log
@@ -50,7 +52,7 @@ app.post('/webhook/', function(req, res) {
 
       //Sends instructions to user
       if(text == "HELP") { //user typed help -> bot tells instructions
-        sendText(sender, "Type...the amount i.e. 10 or 10.00 so I can keep track of how much you spend!\n\nTOTAL to see how much you've spent\nCLEAR to clear the log\nREMOVE RECENT to delete the recently typed amount")
+        sendText(sender, "Type...the amount i.e. $10 or $10.00 so I can keep track of how much you spend!\n\nTOTAL to see how much you've spent\nCLEAR to clear the log\nREMOVE RECENT to delete the recently typed amount")
         continue
       }
 
@@ -58,7 +60,7 @@ app.post('/webhook/', function(req, res) {
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
 
         //g = global; replaces all matches of '$' and ','
-        //need to remove those chars b/c we'll be converting text string to float
+        //need to remove A-Z letters bc we'll be converting text string to float
         text = text.replace(/[A-Z]/g, '');
         text = text.replace(/\$/g, '');
         text = text.replace(/\,/g, '');
@@ -66,12 +68,14 @@ app.post('/webhook/', function(req, res) {
         //convert string to float with 2 decimal places
       	var amount = parseFloat(text);
       	spent.push(amount);
+
+        //replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") -> put comma in every 3 digits
       	sendText(sender, "$" + amount.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " was logged!")
       	continue
       }
 
       //Calculates total expenditures in the log (spent array)
-      else if(text == "TOTAL") {
+      else if(text.includes("TOTAL")) {
       	totalAmount = 0;
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
@@ -146,7 +150,6 @@ function sendText(sender, text){
     }
   })
 }
-
 
 
 
