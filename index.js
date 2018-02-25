@@ -76,16 +76,14 @@ app.post('/webhook/', function(req, res) {
         }
         else {
           for(r = spent.length; r >= 0; r--) {
-              else {
-              removeAmount = spent[r];
-              spent.splice(r, 1);
-              break;
+            removeAmount = spent[r];
+            spent.splice(r, 1);
+            break;
             }
-          }
+          sendText(sender, removeAmount + " was removed.")
+          removeAmount = 0;
+          continue
         }
-        sendText(sender, removeAmount + " was removed.")
-        removeAmount = 0;
-        continue
       }
 
       else if(text == "CLEAR") { //user typed clear -> bot clears spent log (array)
