@@ -118,6 +118,13 @@ function hasNumbers(t) {
     return false;
   }*/
 
+  if(t.indexOf('$')) {
+    regex.replace('$','');
+  }
+  else if(t.indexOf(',')) {
+    regex.replace(',','');
+  }
+  
 	var regex = /\d/g;
 	return regex.test(t);
 }
