@@ -17,10 +17,10 @@ app.use(bodyParser.json())
 
 //Routes
 app.get('/', function(req, res) {
-  res.send("Hello. Let's talk food!")
+  res.send("Hello! I'll help you keep track of your expenses!")
 })
 
-let token = "EAAKyI9NvUzIBAIwUJHZCyMKUnz9CeaOnWypiOXgSO9EnvFLtZAmpBRuY7w07T3XtZB0Tk3dGJeTUjVOIkQGJflwS8P8ZAHIPB9gzbUrj5VTia57SsAZB83YXfgROEkjxUiiHEdbpSXhaeqwaDDvbS66emucwyN9n6jQiwvVjpLwZDZD"
+let token = ""
 
 
 
@@ -28,7 +28,7 @@ let token = "EAAKyI9NvUzIBAIwUJHZCyMKUnz9CeaOnWypiOXgSO9EnvFLtZAmpBRuY7w07T3XtZB
 
 // ===== FACEBOOK ===============================================================
 app.get('/webhook/', function(req, res) {
-  if (req.query['hub.verify_token'] == "EAAKyI9NvUzIBAIwUJHZCyMKUnz9CeaOnWypiOXgSO9EnvFLtZAmpBRuY7w07T3XtZB0Tk3dGJeTUjVOIkQGJflwS8P8ZAHIPB9gzbUrj5VTia57SsAZB83YXfgROEkjxUiiHEdbpSXhaeqwaDDvbS66emucwyN9n6jQiwvVjpLwZDZD"){
+  if (req.query['hub.verify_token'] == ""){
       res.send(req.query['hub.challenge'])
   }
   res.send("Wrong token")
