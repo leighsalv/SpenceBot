@@ -60,7 +60,7 @@ app.post('/webhook/', function(req, res) {
 
       else if(text == "TOTAL") { //user typed total -> bot adds & replies total amount spent
       	totalAmount = 0;
-      	for(var j = 0; j < spent.length; j++) {
+      	for(var j = 0; j < this.spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
       	sendText(sender, "You've spent: " + totalAmount)
@@ -68,17 +68,23 @@ app.post('/webhook/', function(req, res) {
       }
 
       else if(text == "REMOVE RECENT") {
-        for(var r = spent.length; r >= 0; r--) {
-          removeAmount = spent[spent.length];
-          spent.splice(r, 1);
-          break;
+        for(var r = this.spent.length-1; r >= 0; r--) {
+            if(r<0)
+            {
+              sendText(sender, "You don't have any expenses in the log!")
+            }
+            else {
+            removeAmount = spent[this.spent.length];
+            spent.splice(r, 1);
+            break;
+          }
         }
         sendText(sender, removeAmount + " was removed.")
         continue
       }
 
       else if(text == "CLEAR") { //user typed clear -> bot clears spent log (array)
-      	spent.length = 0;
+      	this.spent.length = 0;
       	sendText(sender, "Log cleared")
       	continue
       }
