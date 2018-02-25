@@ -57,6 +57,14 @@ app.post('/webhook/', function(req, res) {
       //Inserts amount spent in the log (spent array)
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
 
+        if(text.includes("$") {
+          text.replace("$", "");
+        }
+
+        else if(text.includes(",")) {
+          text.replace(",", "");
+        }
+
       	var amount = parseFloat(text);
       	spent.push(amount);
       	sendText(sender, "$" + amount + " was logged!")
@@ -126,6 +134,8 @@ function hasNumbers(t) {
     regex.replace(',','');
   }*/
 	//var regex = /\d/g;
+
+  //$? = $ is optional   followed by digit(s)    ,? = comma is optional   .? = period is optional
   var regex = /\$?\d\,?\.?/g;
 	return regex.test(t);
 }
