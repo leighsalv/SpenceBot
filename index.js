@@ -57,14 +57,15 @@ app.post('/webhook/', function(req, res) {
       //Inserts amount spent in the log (spent array)
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
 
-        //g = global; replaces all matches
+        //g = global; replaces all matches of '$' and ','
+        //need to remove those chars b/c we'll be converting text string to float
         text = text.replace(/\$/g, '');
         text = text.replace(/\,/g, '');
 
         //convert string to float with 2 decimal places
       	var amount = parseFloat(text);
       	spent.push(amount);
-      	sendText(sender, "$" + amount + " was logged!")
+      	sendText(sender, "$" + amount.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " was logged!")
       	continue
       }
 
@@ -74,7 +75,7 @@ app.post('/webhook/', function(req, res) {
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
-        totalAmount = totalAmount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+        totalAmount = totalAmount.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
       	sendText(sender, "You've spent: $" + totalAmount)
       	continue
       }
@@ -94,7 +95,7 @@ app.post('/webhook/', function(req, res) {
         else {
             removeAmount = spent[r];
             spent.splice(r, 1);
-            sendText(sender, "$" + removeAmount + " was removed.")
+            sendText(sender, "$" + removeAmount.toFixed(2).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + " was removed.")
             continue
         }
       }
