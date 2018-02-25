@@ -68,18 +68,23 @@ app.post('/webhook/', function(req, res) {
       }
 
       else if(text == "REMOVE RECENT") {
-        for(var r = spent.length-1; r >= 0; r--) {
-            if(r<0)
-            {
-              sendText(sender, "You don't have any expenses in the log!")
+        var r = spent.length-1;
+
+        if(r<0)
+        {
+          sendText(sender, "You don't have any expenses in the log!")
+        }
+        else {
+          for(r = spent.length; r >= 0; r--) {
+              else {
+              removeAmount = spent[r];
+              spent.splice(r, 1);
+              break;
             }
-            else {
-            removeAmount = spent[r];
-            spent.splice(r, 1);
-            break;
           }
         }
         sendText(sender, removeAmount + " was removed.")
+        removeAmount = 0;
         continue
       }
 
