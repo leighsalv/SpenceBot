@@ -30,8 +30,10 @@ app.get('/webhook/', function(req, res) {
   res.send("Wrong token")
 })
 
-//sends & receive messages from user
-var spent = [];
+
+
+/*SENDS & RECEIVES MESSAGES FROM USER*/
+var spent = []; //log
 var totalAmount = 0;
 var removeAmount = 0;
 
@@ -46,27 +48,31 @@ app.post('/webhook/', function(req, res) {
       //convert everything to uppercase so we dont have to check for lower+upper cases
       text = text.toUpperCase();
 
+      //Sends instructions to user
       if(text == "HELP") { //user typed help -> bot tells instructions
         sendText(sender, "Type...the amount i.e. 10 or 10.00 so I can keep track of how much you spend!\n\nTOTAL to see how much you've spent\nCLEAR to clear the log\nREMOVE RECENT to delete the recently typed amount")
         continue
       }
 
+      //Inserts amount spent in the log (spent array)
       else if(hasNumbers(text) == true){ //user typed amount $ -> bot converts string to num
       	var amount = parseFloat(text);
       	spent.push(amount);
-      	sendText(sender, amount + " was logged!")
+      	sendText(sender, "$" + amount + " was logged!")
       	continue
       }
 
-      else if(text == "TOTAL") { //user typed total -> bot adds & replies total amount spent
+      //Calculates total expenditures in the log (spent array)
+      else if(text == "TOTAL") {
       	totalAmount = 0;
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
-      	sendText(sender, "You've spent: " + totalAmount)
+      	sendText(sender, "You've spent: $" + totalAmount)
       	continue
       }
 
+      //Removes recently typed amount (if user made a mistake)
       else if(text == "REMOVE RECENT") {
 
         var r = spent.length-1;
@@ -86,15 +92,17 @@ app.post('/webhook/', function(req, res) {
         }
       }
 
-      else if(text == "CLEAR") { //user typed clear -> bot clears spent log (array)
+      //Removes all amount in the log (spent array)
+      else if(text == "CLEAR") {
       	spent.length = 0;
       	sendText(sender, "Log cleared")
       	continue
       }
 
+      //Default bot response
       else
       	//"Text echo:" + text.substring(0,100) echoes back user's text
-      	sendText(sender, "I'm sorry, I do not understand. Type in HELP if you need assistance.") //default bot response
+      	sendText(sender, "I'm sorry, I do not understand. Type in HELP if you need assistance.")
 
     }
   }
@@ -103,7 +111,8 @@ app.post('/webhook/', function(req, res) {
 
 //checks if user typed numbers (verifies if it's $)
 function hasNumbers(t) {
-	var regex = /\d/g;
+	//var regex = /\D/g;
+  var regex = t.replace(/[^\d.-]/g, '');
 	return regex.test(t);
 }
 
