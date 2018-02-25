@@ -133,9 +133,9 @@ app.post('/webhook/', function(req, res) {
 
 
       //Removes all amount in the log (spent array)
-      else if(text == "CLEAR") {
+      else if(text.includes("CLEAR")) {
       	spent.length = 0;
-      	sendText(sender, "Log cleared")
+      	sendText(sender, "Log cleared!")
       	continue
       }
 
