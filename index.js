@@ -74,8 +74,7 @@ app.post('/webhook/', function(req, res) {
       	for(var j = 0; j < spent.length; j++) {
       		totalAmount = totalAmount + spent[j];
       	}
-        totalAmount.toLocaleString(); //adds comma to numbers
-      	sendText(sender, "You've spent: $" + totalAmount)
+      	sendText(sender, "You've spent: $" + totalAmount.toLocaleString(undefined, {maximumFractionDigits:2}))
       	continue
       }
 
