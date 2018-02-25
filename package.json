@@ -1,7 +1,7 @@
 {
   "name": "spencebot",
   "version": "1.0.0",
-  "description": "your exSPENCEs are safe with me",
+  "description": "a minimalist way to track expenses",
   "main": "index.js",
   "scripts": {
     "test": "beepboop"
